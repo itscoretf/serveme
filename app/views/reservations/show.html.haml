@@ -88,9 +88,12 @@
           - if current_admin || current_league_admin || current_streamer
             - ip_and_port = "#{reservation&.server&.public_ip}:#{reservation&.server&.public_tv_port}"
             - password_for_relay = reservation.tv_relaypassword.presence || reservation.tv_password
-            = link_to "http://relay.fakkelbrigade.eu/new?ip_port=#{ip_and_port}&password=#{password_for_relay}", :title => "create relay", :class => "btn btn-sm btn-warning", :target => "_blank" do
-              Create relay
-              %i.fa.fa-share-alt
+            - if au_system?
+              au.serveme.tf does not support using SourceTV Relays.
+            - else
+              = link_to "http://relay.fakkelbrigade.eu/new?ip_port=#{ip_and_port}&password=#{password_for_relay}", :title => "create relay", :class => "btn btn-sm btn-warning", :target => "_blank" do
+                Create relay
+                %i.fa.fa-share-alt
 
       - if reservation.server_config
         %tr
